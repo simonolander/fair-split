@@ -1,49 +1,21 @@
 module Main exposing (..)
 
 import Browser
-import Html exposing (Html, text, div, h1, img)
-import Html.Attributes exposing (src)
-
-
----- MODEL ----
-
-
-type alias Model =
-    {}
+import Model exposing (..)
+import Update exposing (update)
+import View exposing (view)
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( {}, Cmd.none )
-
-
-
----- UPDATE ----
-
-
-type Msg
-    = NoOp
-
-
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
-    ( model, Cmd.none )
-
-
-
----- VIEW ----
-
-
-view : Model -> Html Msg
-view model =
-    div []
-        [ img [ src "/logo.svg" ] []
-        , h1 [] [ text "Your Elm App is working!" ]
-        ]
-
-
-
----- PROGRAM ----
+    let 
+        strands = [ [Blue, Yellow, Yellow, Blue, Blue, Blue, Yellow, Yellow, Blue, Blue, Yellow, Yellow, Blue, Blue, Yellow, Yellow, Blue, Blue, Yellow, Yellow, Blue, Blue, Yellow, Yellow, Blue, Blue, Yellow, Yellow, Blue, Blue, Yellow, Yellow, Blue, Blue] ]
+        
+        model = 
+            { strands = strands
+            }
+    in
+        ( model, Cmd.none )
 
 
 main : Program () Model Msg
