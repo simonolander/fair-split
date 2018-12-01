@@ -5,6 +5,13 @@ type Gem =
   | Yellow
 
 
+getGemOrdinal : Gem -> Int
+getGemOrdinal gem =
+  case gem of
+    Blue -> 0
+    Yellow -> 1
+
+
 type alias Strand =
   List Gem
 
@@ -21,3 +28,5 @@ type alias Model =
 type Msg
     = Reset
     | Cut Int
+    | NextClicked
+    | NewStrands Strands

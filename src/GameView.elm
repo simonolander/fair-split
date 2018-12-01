@@ -102,7 +102,7 @@ view strands =
   in
     svg
       [ width "100%"
-      , height "100vh"
+      , height "80vh"
       , viewBox viewBoxString
       , preserveAspectRatio "xMidYMid meet"
       ]
@@ -129,12 +129,25 @@ viewGem (gem, (x, y)) =
 viewWire : Wire -> Svg Msg
 viewWire wire =
   let 
+    yourColor = 
+      "green"
+    
+    theirColor = 
+      "red"
+
     (strokeColor1, strokeColor2) = 
       if wire.yours
       then 
-        ("green", "red")
+        (yourColor, theirColor)
       else
-        ("red", "green")
+        (theirColor, yourColor)
+
+    cursor =
+      if wire.cut
+      then 
+        "auto"
+      else
+        "pointer"
     
     viewLine p1 p2 strokeColor = 
       line
@@ -145,6 +158,8 @@ viewWire wire =
         , stroke strokeColor
         , strokeWidth (String.fromFloat (circleRadius * 0.5))
         , onClick (Cut wire.index)
+        , strokeLinecap "round"
+        , Svg.Attributes.cursor cursor
         ]
         []
   in
@@ -239,11 +254,12 @@ isCut index strands =
           isCut (index - List.length head) tail
       [] -> False
 
+
 isYours : Bool -> Int -> Strands -> Bool
 isYours yours index strands = 
   if index < 0
   then 
-    False
+    not yours
   else
     case strands of 
       (head :: tail) -> 
@@ -252,4 +268,4 @@ isYours yours index strands =
           yours
         else 
           isYours (not yours) (index - List.length head) tail
-      [] -> False
+      [] -> not yours

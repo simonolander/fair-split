@@ -1,7 +1,7 @@
 module Update exposing (update)
 
 import Model exposing (..)
-
+import Generators exposing (..)
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
@@ -15,6 +15,16 @@ update msg model =
       Cut index -> 
         ( { model
           | strands = cutStrands index model.strands
+          }
+        , Cmd.none
+        )
+      NextClicked ->
+        ( model
+        , newStrandsMsg
+        )
+      NewStrands strands -> 
+        ( { model
+          | strands = strands
           }
         , Cmd.none
         )

@@ -4,18 +4,24 @@ import Browser
 import Model exposing (..)
 import Update exposing (update)
 import View exposing (view)
+import Generators exposing (newStrandsMsg)
 
 
 init : ( Model, Cmd Msg )
 init =
     let 
-        strands = [ [Blue, Yellow, Yellow, Blue, Blue, Blue, Yellow, Yellow, Blue, Blue, Yellow, Yellow, Blue, Blue, Yellow, Yellow, Blue, Blue, Yellow, Yellow, Blue, Blue, Yellow, Yellow, Blue, Blue, Yellow, Yellow, Blue, Blue, Yellow, Yellow, Blue, Blue] ]
+        strands = []
         
         model = 
             { strands = strands
             }
+
+        cmds = 
+            Cmd.batch
+                [ newStrandsMsg
+                ]
     in
-        ( model, Cmd.none )
+        ( model, cmds )
 
 
 main : Program () Model Msg
